@@ -1,0 +1,223 @@
+CREATE TABLE Tematica 
+(
+
+Id int identity(1,1) PRIMARY KEY,
+Descriere varchar(max)
+ 
+)
+INSERT INTO Tematica VALUES('90s')
+INSERT INTO Tematica VALUES('80s')
+INSERT INTO Tematica VALUES('20s')
+INSERT INTO Tematica VALUES('Gothic')
+INSERT INTO Tematica VALUES('Pop')
+INSERT INTO Tematica VALUES('Rock')
+INSERT INTO Tematica VALUES('Blues')
+INSERT INTO Tematica VALUES('Dark')
+INSERT INTO Tematica VALUES('Light')
+INSERT INTO Tematica VALUES('Red')
+
+
+
+CREATE TABLE Pachet 
+(
+
+Id int identity(1,1) PRIMARY KEY,
+ Pretminim int,
+ Pretmaxim int
+)
+INSERT INTO  Pachet VALUES(50,100)
+INSERT INTO  Pachet VALUES(100,1000)
+INSERT INTO  Pachet VALUES(150,4545)
+INSERT INTO  Pachet VALUES(211,2525)
+INSERT INTO  Pachet VALUES(10000,50000)
+INSERT INTO  Pachet VALUES(452,8000)
+INSERT INTO  Pachet VALUES(250,15500)
+INSERT INTO  Pachet VALUES(6885,908225)
+INSERT INTO  Pachet VALUES(1200,1000000)
+INSERT INTO  Pachet VALUES(57575,575757)
+
+
+
+
+CREATE TABLE CLIENTEV
+(
+Id INT IDENTITY(1,1) PRIMARY KEY,
+Nume VARCHAR(MAX) NOT NULL,
+Preume VARCHAR(MAX) NOT NULL,
+Numar_telefon VARCHAR(10) UNIQUE NOT NULL,
+CONSTRAINT C2_NR CHECK (Numar_telefon like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]') 
+)
+INSERT INTO  CLIENTEV VALUES('Joshua ','Anthony','1622883398' )
+INSERT INTO  CLIENTEV VALUES('Mona ','Clarke','5998051736' )
+INSERT INTO  CLIENTEV VALUES('Camden ','Kemp','9026179975' )
+INSERT INTO  CLIENTEV VALUES('Basil ','Alford','6157068929' )
+INSERT INTO  CLIENTEV VALUES('Justin ','Simpson','8936891996' )
+INSERT INTO  CLIENTEV VALUES('Ainsley ','Rowe','8789662148' )
+INSERT INTO  CLIENTEV VALUES('Lysandra ','Calderon','7883270201' )
+INSERT INTO  CLIENTEV VALUES('Cain ','Baxter','8558538866' )
+INSERT INTO  CLIENTEV VALUES('Martena ','Doyle','2154440267' )
+INSERT INTO  CLIENTEV VALUES('Rahim ','Bender','3872006891' )
+CREATE TABLE Locatie
+(
+
+Id int identity(1,1) PRIMARY KEY,
+Adresa varchar(max)
+)
+ INSERT INTO  Locatie VALUES('Ap #775-1941 Ut Street')
+INSERT INTO  Locatie VALUES('P.O. Box 359, 3464 A, Rd.')
+INSERT INTO  Locatie VALUES('Ap #110-4487 Ornare, Av.')
+INSERT INTO  Locatie VALUES('963-1078 Dolor. Rd.')
+INSERT INTO  Locatie VALUES('Ap #471-5186 Adipiscing Avenue')
+INSERT INTO  Locatie VALUES('Ap #469-9589 Enim. Rd.')
+INSERT INTO  Locatie VALUES('Ap #106-5873 Cras Rd.')
+INSERT INTO  Locatie VALUES('Ap #764-9697 Condimentum. Av.')
+INSERT INTO  Locatie VALUES('Ap #723-7127 Fusce Rd.')
+INSERT INTO  Locatie VALUES('Ap #288-4840 Mi. St.')	
+
+CREATE TABLE Listac
+ (
+Id int identity(1,1) PRIMARY KEY,
+Durata int ,
+ 
+)
+
+CREATE TABLE Eveniment 
+(
+
+Id int identity(1,1) PRIMARY KEY,
+Nume varchar(max) NOT NULL,
+Data_eveniment datetime NOT NULL,
+Cost int NOT NULL,
+Id_tematica int FOREIGN KEY REFERENCES Tematica(Id),
+Id_pachet int FOREIGN KEY REFERENCES Pachet(Id),
+Id_locatie int FOREIGN KEY REFERENCES Locatie(Id),
+Id_client int FOREIGN KEY REFERENCES Clientev(Id),
+Id_listac int FOREIGN KEY REFERENCES Listac(Id)
+)
+INSERT INTO  Eveniment VALUES(NEXT VALUE FOR SEQ_EVENIMENT,'Petrecere ','2020-06-03',10000,1,1,1,1,1 )
+INSERT INTO  Eveniment VALUES(NEXT VALUE FOR SEQ_EVENIMENT,'Cununie ','2020-01-23',2500,1,3,1,4,6 )
+INSERT INTO  Eveniment VALUES(NEXT VALUE FOR SEQ_EVENIMENT,'Festival ','2022-07-03',1500,4,4,5,1,5 )
+INSERT INTO  Eveniment VALUES(NEXT VALUE FOR SEQ_EVENIMENT,'Majorat ','2023-08-23',25010,7,4,6,2,7 )
+INSERT INTO  Eveniment VALUES(NEXT VALUE FOR SEQ_EVENIMENT,'Nunta ','2021-06-13',899889,9,1,10,2,5 )
+INSERT INTO  Eveniment VALUES(NEXT VALUE FOR SEQ_EVENIMENT,'Petrecre ','2025-06-25',2342,7,6,1,8,9 )
+INSERT INTO  Eveniment VALUES(NEXT VALUE FOR SEQ_EVENIMENT,'Petrecere ','2024-06-23',25272,3,8,2,1,10 )
+INSERT INTO  Eveniment VALUES(NEXT VALUE FOR SEQ_EVENIMENT,'Petrecere ','2024-06-15',12782,8,2,3,5,1 )
+INSERT INTO  Eveniment VALUES(NEXT VALUE FOR SEQ_EVENIMENT,'Petrecere ','2022-06-01',12050,10,2,1,4,8 )
+INSERT INTO  Eveniment VALUES(NEXT VALUE FOR SEQ_EVENIMENT,'Petrecere ','2023-06-02',54353,10,10,10,10,10 )
+ 
+CREATE TABLE Organizator 
+(
+
+Id int identity(1,1) PRIMARY KEY,
+Nume varchar(max) NOT NULL,
+)
+INSERT INTO  Organizator VALUES('Lisa & MAry')
+INSERT INTO  Organizator VALUES('Apollo')
+INSERT INTO  Organizator VALUES('Casa di David')
+INSERT INTO  Organizator VALUES('Bound')
+INSERT INTO  Organizator VALUES('M&S')
+INSERT INTO  Organizator VALUES('FunClub')
+INSERT INTO  Organizator VALUES('Palace of Caesar')
+INSERT INTO  Organizator VALUES('18Lounge')
+INSERT INTO  Organizator VALUES('Noe')
+INSERT INTO  Organizator VALUES('X')
+
+
+
+CREATE TABLE Program 
+(
+Stare varchar(max) NOT NULL,
+Id_eveniment int FOREIGN KEY REFERENCES Eveniment(Id),
+Id_organizator int FOREIGN KEY REFERENCES Organizator(Id)
+)
+INSERT INTO Program VALUES('Programat',1,10)	
+INSERT INTO Program VALUES('Nerogramat',10,10)	
+INSERT INTO Program VALUES('Programat',2,5)	
+INSERT INTO Program VALUES('Nerogramat',5,2)	
+INSERT INTO Program VALUES('Nerogramat',3,2)	
+INSERT INTO Program VALUES('Programat',10,5)	
+INSERT INTO Program VALUES('Nerogramat',8,7)	
+INSERT INTO Program VALUES('Programat',3,6)	
+INSERT INTO Program VALUES('Nerogramat',4,9)	
+INSERT INTO Program VALUES('Programat',10,1)	
+ 
+ 
+ CREATE TABLE Album
+(
+
+Id int identity(1,1) PRIMARY KEY,
+Artist varchar(max),
+Data_lansare datetime NOT NULL
+)
+INSERT INTO Album VALUES('Smiley','2016-01-16')	
+INSERT INTO Album VALUES('Beyonce','2017-06-21')	
+INSERT INTO Album VALUES('Rares','2011-09-09')	
+INSERT INTO Album VALUES('Conan Gray','2014-05-26')	
+INSERT INTO Album VALUES('Ariana Grande','2020-05-06')	
+INSERT INTO Album VALUES('Harry Styles','2016-10-25')	
+INSERT INTO Album VALUES('Lizzo','2012-03-30')	
+INSERT INTO Album VALUES('Queen','2019-06-02')	
+INSERT INTO Album VALUES('Olivia Rodrigo','2010-07-03')	
+INSERT INTO Album VALUES('LSD','2013-10-15')	
+
+
+ 
+ CREATE TABLE Cantec
+ (
+	Nume varchar(max),
+	Durata int,
+	Id_listac int FOREIGN KEY REFERENCES listac(Id),
+	Id_album int FOREIGN KEY REFERENCES Album(Id)
+
+ 
+)
+INSERT INTO Cantec VALUES('Acasa',1,1,3)
+INSERT INTO Cantec VALUES('Halo',4,2,5)	
+INSERT INTO Cantec VALUES('Uita-ma',3,3,10)	
+INSERT INTO Cantec VALUES('Naspa',3,3,8)	
+INSERT INTO Cantec VALUES('Naspa',3,1,7)	
+INSERT INTO Cantec VALUES('Memories',4,2,4)	
+INSERT INTO Cantec VALUES('Thank you next',5,5,3)	
+INSERT INTO Cantec VALUES('Kiwi',6,5,7)	
+INSERT INTO Cantec VALUES('We are the champions',8,4,4)	
+INSERT INTO Cantec VALUES('Audio',10,3,3)
+
+CREATE TABLE Restaurant 
+(
+Id INT IDENTITY(1,1) PRIMARY KEY,
+Nume Varchar(max),
+Numar_telefon VARCHAR(10) UNIQUE NOT NULL,
+)
+INSERT INTO Restaurant VALUES('Casa di David','1256789810')
+INSERT INTO Restaurant VALUES('18Lounge','3426588068' )
+INSERT INTO Restaurant VALUES('Mm','1966003343' )
+INSERT INTO Restaurant VALUES('Aici','5998051736' )
+INSERT INTO Restaurant VALUES('Ieri','6157068929' )
+INSERT INTO Restaurant VALUES('Maine','8789662148' )
+INSERT INTO Restaurant VALUES('Amarin','3872006891' )
+INSERT INTO Restaurant VALUES('Beyou','8085809979' )
+INSERT INTO Restaurant VALUES('Love','4001331470' )
+INSERT INTO Restaurant VALUES('Bty','3012096670' )
+
+
+CREATE TABLE Meniu 
+(
+Id INT IDENTITY(1,1) PRIMARY KEY,
+Pret int ,
+Id_eveniment int FOREIGN KEY REFERENCES Eveniment(Id),
+Id_restaurant int FOREIGN KEY REFERENCES Restaurant(Id)
+)
+INSERT INTO Meniu VALUES(100,1,10)
+INSERT INTO Meniu VALUES(98,9,8)
+INSERT INTO Meniu VALUES(88,8,9)
+INSERT INTO Meniu VALUES(101230,7,10)
+INSERT INTO Meniu VALUES(50,10,10)
+INSERT INTO Meniu VALUES(233,1,3)
+INSERT INTO Meniu VALUES(5252,4,8)
+INSERT INTO Meniu VALUES(800,7,8)
+INSERT INTO Meniu VALUES(10240,3,6)
+INSERT INTO Meniu VALUES(10220,5,5)
+
+
+
+ 
